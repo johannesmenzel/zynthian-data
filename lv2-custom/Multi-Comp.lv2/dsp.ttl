@@ -1,0 +1,1775 @@
+@prefix atom:  <http://lv2plug.in/ns/ext/atom#> .
+@prefix bufs:  <http://lv2plug.in/ns/ext/buf-size#> .
+@prefix doap:  <http://usefulinc.com/ns/doap#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix lv2:   <http://lv2plug.in/ns/lv2core#> .
+@prefix midi:  <http://lv2plug.in/ns/ext/midi#> .
+@prefix opts:  <http://lv2plug.in/ns/ext/options#> .
+@prefix param: <http://lv2plug.in/ns/ext/parameters#> .
+@prefix patch: <http://lv2plug.in/ns/ext/patch#> .
+@prefix pg:    <http://lv2plug.in/ns/ext/port-groups#> .
+@prefix plug:  <https://dusk-audio.github.io/plugins/multi-comp:> .
+@prefix pprop: <http://lv2plug.in/ns/ext/port-props#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rsz:   <http://lv2plug.in/ns/ext/resize-port#> .
+@prefix state: <http://lv2plug.in/ns/ext/state#> .
+@prefix time:  <http://lv2plug.in/ns/ext/time#> .
+@prefix ui:    <http://lv2plug.in/ns/extensions/ui#> .
+@prefix units: <http://lv2plug.in/ns/extensions/units#> .
+@prefix urid:  <http://lv2plug.in/ns/ext/urid#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+plug:mode
+	a lv2:Parameter ;
+	pg:group plug:G_SETUP ;
+    lv2:displayPriority 100 ;
+	rdfs:label "Mode" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 7	 ;
+	lv2:portProperty lv2:enumeration ;
+	lv2:scalePoint [
+		rdfs:label "Vintage Opto" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "Vintage FET" ;
+		rdf:value 1 ;
+	], [
+		rdfs:label "Classic VCA" ;
+		rdf:value 2 ;
+	], [
+		rdfs:label "Vintage VCA (Bus)" ;
+		rdf:value 3 ;
+	], [
+		rdfs:label "Studio FET" ;
+		rdf:value 4 ;
+	], [
+		rdfs:label "Studio VCA" ;
+		rdf:value 5 ;
+	], [
+		rdfs:label "Digital" ;
+		rdf:value 6 ;
+	], [
+		rdfs:label "Multiband" ;
+		rdf:value 7 ;
+	] .
+
+plug:bypass
+	a lv2:Parameter ;
+	pg:group plug:G_SETUP ;
+    lv2:displayPriority 99 ;
+	rdfs:label "Bypass" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration , lv2:toggled ;
+	lv2:scalePoint [
+		rdfs:label "Off" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "On" ;
+		rdf:value 1 ;
+	] .
+
+plug:stereo_link
+	a lv2:Parameter ;
+	pg:group plug:G_SIDECHAIN ;
+    lv2:displayPriority 92 ;
+	rdfs:label "Stereo Link" ;
+	rdfs:range atom:Float ;
+	lv2:default 100 ;
+	lv2:minimum 0 ;
+	lv2:maximum 100 .
+
+plug:mix
+	a lv2:Parameter ;
+	rdfs:label "Mix" ;
+	pg:group plug:G_SETUP ;
+    lv2:displayPriority 97 ;
+	rdfs:range atom:Float ;
+	lv2:default 100 ;
+	lv2:minimum 0 ;
+	lv2:maximum 100 .
+
+plug:sidechain_hp
+	a lv2:Parameter ;
+	pg:group plug:G_SIDECHAIN ;
+    lv2:displayPriority 96 ;
+	rdfs:label "SC HP Filter" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 500 .
+
+plug:auto_makeup
+	a lv2:Parameter ;
+	pg:group plug:G_SETUP ;
+    lv2:displayPriority 95 ;
+	rdfs:label "Auto Makeup" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration ;
+	lv2:scalePoint [
+		rdfs:label "Off" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "On" ;
+		rdf:value 1 ;
+	] .
+
+plug:distortion_type
+	a lv2:Parameter ;
+	pg:group plug:G_SETUP ;
+    lv2:displayPriority 94 ;
+	rdfs:label "Distortion" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 3	 ;
+	lv2:portProperty lv2:enumeration ;
+	lv2:scalePoint [
+		rdfs:label "Off" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "Soft" ;
+		rdf:value 1 ;
+	], [
+		rdfs:label "Hard" ;
+		rdf:value 2 ;
+	], [
+		rdfs:label "Clip" ;
+		rdf:value 3 ;
+	] .
+
+plug:distortion_amount
+	a lv2:Parameter ;
+	pg:group plug:G_SETUP ;
+    lv2:displayPriority 93 ;
+	rdfs:label "Distortion Amt" ;
+	rdfs:range atom:Float ;
+	lv2:default 50 ;
+	lv2:minimum 0 ;
+	lv2:maximum 100 .
+
+plug:envelope_curve
+	a lv2:Parameter ;
+	pg:group plug:G_SETUP ;
+    lv2:displayPriority 92 ;
+	rdfs:label "Envelope Curve" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration ;
+	lv2:scalePoint [
+		rdfs:label "Logarithmic (Analog)" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "Linear (Digital)" ;
+		rdf:value 1 ;
+	] .
+
+plug:saturation_mode
+	a lv2:Parameter ;
+	pg:group plug:G_SETUP ;
+    lv2:displayPriority 91 ;
+	rdfs:label "Saturation Mode" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 2	 ;
+	lv2:portProperty lv2:enumeration ;
+	lv2:scalePoint [
+		rdfs:label "Vintage (Warm)" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "Modern (Clean)" ;
+		rdf:value 1 ;
+	], [
+		rdfs:label "Pristine (Minimal)" ;
+		rdf:value 2 ;
+	] .
+
+plug:sidechain_enable
+	a lv2:Parameter ;
+	pg:group plug:G_SIDECHAIN ;
+    lv2:displayPriority 95 ;
+	rdfs:label "External Sidechain" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration , lv2:toggled ;
+	lv2:scalePoint [
+		rdfs:label "Off" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "On" ;
+		rdf:value 1 ;
+	] .
+
+plug:global_lookahead
+	a lv2:Parameter ;
+	pg:group plug:G_SETUP ;
+    lv2:displayPriority 89 ;
+	rdfs:label "Lookahead" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 10 .
+
+plug:global_sidechain_listen
+	a lv2:Parameter ;
+	pg:group plug:G_SIDECHAIN ;
+    lv2:displayPriority 94 ;
+	rdfs:label "SC Listen" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration , lv2:toggled ;
+	lv2:scalePoint [
+		rdfs:label "Off" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "On" ;
+		rdf:value 1 ;
+	] .
+
+plug:stereo_link_mode
+	a lv2:Parameter ;
+	pg:group plug:G_SIDECHAIN ;
+    lv2:displayPriority 91 ;
+	rdfs:label "Link Mode" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 2	 ;
+	lv2:portProperty lv2:enumeration ;
+	lv2:scalePoint [
+		rdfs:label "Stereo" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "Mid-Side" ;
+		rdf:value 1 ;
+	], [
+		rdfs:label "Dual Mono" ;
+		rdf:value 2 ;
+	] .
+
+plug:noise_enable
+	a lv2:Parameter ;
+	pg:group plug:G_SETUP ;
+    lv2:displayPriority 86 ;
+	rdfs:label "Analog Noise" ;
+	rdfs:range atom:Float ;
+	lv2:default 1 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration , lv2:toggled ;
+	lv2:scalePoint [
+		rdfs:label "Off" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "On" ;
+		rdf:value 1 ;
+	] .
+
+plug:oversampling
+	a lv2:Parameter ;
+	pg:group plug:G_SETUP ;
+    lv2:displayPriority 85 ;
+	rdfs:label "Oversampling" ;
+	rdfs:range atom:Float ;
+	lv2:default 1 ;
+	lv2:minimum 0 ;
+	lv2:maximum 2	 ;
+	lv2:portProperty lv2:enumeration ;
+	lv2:scalePoint [
+		rdfs:label "Off" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "2x" ;
+		rdf:value 1 ;
+	], [
+		rdfs:label "4x" ;
+		rdf:value 2 ;
+	] .
+
+plug:sc_low_freq
+	pg:group plug:G_SIDECHAIN ;
+    lv2:displayPriority 100 ;
+	a lv2:Parameter ;
+	rdfs:label "SC Low Freq" ;
+	rdfs:range atom:Float ;
+	lv2:default 100 ;
+	lv2:minimum 60 ;
+	lv2:maximum 500 .
+
+plug:sc_low_gain
+	pg:group plug:G_SIDECHAIN ;
+    lv2:displayPriority 99 ;
+	a lv2:Parameter ;
+	rdfs:label "SC Low Gain" ;
+	rdfs:range atom:Float ;
+	lv2:default 1.78814e-07 ;
+	lv2:minimum -12 ;
+	lv2:maximum 12 .
+
+plug:sc_high_freq
+	a lv2:Parameter ;
+	pg:group plug:G_SIDECHAIN ;
+    lv2:displayPriority 98 ;
+	rdfs:label "SC High Freq" ;
+	rdfs:range atom:Float ;
+	lv2:default 8000 ;
+	lv2:minimum 2000 ;
+	lv2:maximum 16000 .
+
+plug:sc_high_gain
+	a lv2:Parameter ;
+	pg:group plug:G_SIDECHAIN ;
+    lv2:displayPriority 97 ;
+	rdfs:label "SC High Gain" ;
+	rdfs:range atom:Float ;
+	lv2:default 1.78814e-07 ;
+	lv2:minimum -12 ;
+	lv2:maximum 12 .
+
+plug:true_peak_enable
+	a lv2:Parameter ;
+	pg:group plug:G_SETUP ;
+    lv2:displayPriority 84 ;
+	rdfs:label "True Peak" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration , lv2:toggled ;
+	lv2:scalePoint [
+		rdfs:label "Off" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "On" ;
+		rdf:value 1 ;
+	] .
+
+plug:true_peak_quality
+	a lv2:Parameter ;
+	pg:group plug:G_SETUP ;
+    lv2:displayPriority 83 ;
+	rdfs:label "TP Quality" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration ;
+	lv2:scalePoint [
+		rdfs:label "4x (Standard)" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "8x (High)" ;
+		rdf:value 1 ;
+	] .
+
+plug:gr_meter
+	a lv2:Parameter ;
+	pg:group plug:G_SETUP ;
+    lv2:displayPriority 82 ;
+    lv2:portProperty <http://lv2plug.in/ns/ext/port-props#notOnGUI> ;
+	rdfs:label "GR" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum -30 ;
+	lv2:maximum 0 .
+
+plug:opto_peak_reduction
+	a lv2:Parameter ;
+	pg:group plug:G_OPTO ;
+    lv2:displayPriority 100 ;
+	rdfs:label "Peak Reduction" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 100 .
+
+plug:opto_gain
+	a lv2:Parameter ;
+	pg:group plug:G_OPTO ;
+    lv2:displayPriority 99 ;
+	rdfs:label "Gain" ;
+	rdfs:range atom:Float ;
+	lv2:default 50 ;
+	lv2:minimum 0 ;
+	lv2:maximum 100 .
+
+plug:opto_limit
+	a lv2:Parameter ;
+	pg:group plug:G_OPTO ;
+    lv2:displayPriority 98 ;
+	rdfs:label "Limit Mode" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration , lv2:toggled ;
+	lv2:scalePoint [
+		rdfs:label "Comp" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "Limit" ;
+		rdf:value 1 ;
+	] .
+
+plug:fet_input
+	a lv2:Parameter ;
+	pg:group plug:G_FET ;
+    lv2:displayPriority 100 ;
+	rdfs:label "Input" ;
+	rdfs:range atom:Float ;
+	lv2:default 2.98023e-07 ;
+	lv2:minimum -20 ;
+	lv2:maximum 40 .
+
+plug:fet_output
+	a lv2:Parameter ;
+	pg:group plug:G_FET ;
+    lv2:displayPriority 99 ;
+	rdfs:label "Output" ;
+	rdfs:range atom:Float ;
+	lv2:default 2.98023e-07 ;
+	lv2:minimum -20 ;
+	lv2:maximum 20 .
+
+plug:fet_attack
+	a lv2:Parameter ;
+	pg:group plug:G_FET ;
+    lv2:displayPriority 98 ;
+	rdfs:label "Attack" ;
+	rdfs:range atom:Float ;
+	lv2:default 0.2 ;
+	lv2:minimum 0.02 ;
+	lv2:maximum 80 .
+
+plug:fet_release
+	a lv2:Parameter ;
+	pg:group plug:G_FET ;
+    lv2:displayPriority 97 ;
+	rdfs:label "Release" ;
+	rdfs:range atom:Float ;
+	lv2:default 400 ;
+	lv2:minimum 50 ;
+	lv2:maximum 1100 .
+
+plug:fet_ratio
+	a lv2:Parameter ;
+	pg:group plug:G_FET ;
+    lv2:displayPriority 96 ;
+	rdfs:label "Ratio" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 4	 ;
+	lv2:portProperty lv2:enumeration ;
+	lv2:scalePoint [
+		rdfs:label "4:1" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "8:1" ;
+		rdf:value 1 ;
+	], [
+		rdfs:label "12:1" ;
+		rdf:value 2 ;
+	], [
+		rdfs:label "20:1" ;
+		rdf:value 3 ;
+	], [
+		rdfs:label "All" ;
+		rdf:value 4 ;
+	] .
+
+plug:fet_threshold
+	a lv2:Parameter ;
+	pg:group plug:G_FET ;
+    lv2:displayPriority 95 ;
+	rdfs:label "Threshold" ;
+	rdfs:range atom:Float ;
+	lv2:default -10 ;
+	lv2:minimum -60 ;
+	lv2:maximum 0 .
+
+plug:fet_curve_mode
+	a lv2:Parameter ;
+	pg:group plug:G_FET ;
+    lv2:displayPriority 94 ;
+	rdfs:label "Curve Mode" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration ;
+	lv2:scalePoint [
+		rdfs:label "Modern" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "Measured" ;
+		rdf:value 1 ;
+	] .
+
+plug:fet_transient
+	a lv2:Parameter ;
+	pg:group plug:G_FET ;
+    lv2:displayPriority 93 ;
+	rdfs:label "Transient" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 100 .
+
+plug:vca_threshold
+	a lv2:Parameter ;
+	pg:group plug:G_VCA ;
+    lv2:displayPriority 100 ;
+	rdfs:label "Threshold" ;
+	rdfs:range atom:Float ;
+	lv2:default 5.66244e-07 ;
+	lv2:minimum -38 ;
+	lv2:maximum 12 .
+
+plug:vca_ratio
+	a lv2:Parameter ;
+	pg:group plug:G_VCA ;
+    lv2:displayPriority 99 ;
+	rdfs:label "Ratio" ;
+	rdfs:range atom:Float ;
+	lv2:default 4 ;
+	lv2:minimum 1 ;
+	lv2:maximum 120 .
+
+plug:vca_attack
+	a lv2:Parameter ;
+	pg:group plug:G_VCA ;
+    lv2:displayPriority 98 ;
+	rdfs:label "Attack" ;
+	rdfs:range atom:Float ;
+	lv2:default 1 ;
+	lv2:minimum 0.1 ;
+	lv2:maximum 50 .
+
+plug:vca_release
+	a lv2:Parameter ;
+	pg:group plug:G_VCA ;
+    lv2:displayPriority 97 ;
+	rdfs:label "Release" ;
+	rdfs:range atom:Float ;
+	lv2:default 100 ;
+	lv2:minimum 10 ;
+	lv2:maximum 5000 .
+
+plug:vca_output
+	a lv2:Parameter ;
+	pg:group plug:G_VCA ;
+    lv2:displayPriority 96 ;
+	rdfs:label "Output" ;
+	rdfs:range atom:Float ;
+	lv2:default 2.98023e-07 ;
+	lv2:minimum -20 ;
+	lv2:maximum 20 .
+
+plug:vca_overeasy
+	a lv2:Parameter ;
+	pg:group plug:G_VCA ;
+    lv2:displayPriority 95 ;
+	rdfs:label "Over Easy" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration , lv2:toggled ;
+	lv2:scalePoint [
+		rdfs:label "Off" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "On" ;
+		rdf:value 1 ;
+	] .
+
+plug:vca_detector_mode
+	a lv2:Parameter ;
+	pg:group plug:G_VCA ;
+    lv2:displayPriority 94 ;
+	rdfs:label "VCA Detector" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration ;
+	lv2:scalePoint [
+		rdfs:label "Adaptive" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "Classic" ;
+		rdf:value 1 ;
+	] .
+
+plug:bus_threshold
+	a lv2:Parameter ;
+	pg:group plug:G_BUS ;
+    lv2:displayPriority 100 ;
+	rdfs:label "Threshold" ;
+	rdfs:range atom:Float ;
+	lv2:default 4.47035e-07 ;
+	lv2:minimum -30 ;
+	lv2:maximum 15 .
+
+plug:bus_ratio
+	a lv2:Parameter ;
+	pg:group plug:G_BUS ;
+    lv2:displayPriority 99 ;
+	rdfs:label "Ratio" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 2	 ;
+	lv2:portProperty lv2:enumeration ;
+	lv2:scalePoint [
+		rdfs:label "2:1" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "4:1" ;
+		rdf:value 1 ;
+	], [
+		rdfs:label "10:1" ;
+		rdf:value 2 ;
+	] .
+
+plug:bus_attack
+	a lv2:Parameter ;
+	pg:group plug:G_BUS ;
+    lv2:displayPriority 98 ;
+	rdfs:label "Attack" ;
+	rdfs:range atom:Float ;
+	lv2:default 2 ;
+	lv2:minimum 0 ;
+	lv2:maximum 5	 ;
+	lv2:portProperty lv2:enumeration ;
+	lv2:scalePoint [
+		rdfs:label "0.1ms" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "0.3ms" ;
+		rdf:value 1 ;
+	], [
+		rdfs:label "1ms" ;
+		rdf:value 2 ;
+	], [
+		rdfs:label "3ms" ;
+		rdf:value 3 ;
+	], [
+		rdfs:label "10ms" ;
+		rdf:value 4 ;
+	], [
+		rdfs:label "30ms" ;
+		rdf:value 5 ;
+	] .
+
+plug:bus_release
+	a lv2:Parameter ;
+	pg:group plug:G_BUS ;
+    lv2:displayPriority 97 ;
+	rdfs:label "Release" ;
+	rdfs:range atom:Float ;
+	lv2:default 1 ;
+	lv2:minimum 0 ;
+	lv2:maximum 4	 ;
+	lv2:portProperty lv2:enumeration ;
+	lv2:scalePoint [
+		rdfs:label "0.1s" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "0.3s" ;
+		rdf:value 1 ;
+	], [
+		rdfs:label "0.6s" ;
+		rdf:value 2 ;
+	], [
+		rdfs:label "1.2s" ;
+		rdf:value 3 ;
+	], [
+		rdfs:label "Auto" ;
+		rdf:value 4 ;
+	] .
+
+plug:bus_makeup
+	a lv2:Parameter ;
+	pg:group plug:G_BUS ;
+    lv2:displayPriority 96 ;
+	rdfs:label "Makeup" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 20 .
+
+plug:bus_mix
+	a lv2:Parameter ;
+	pg:group plug:G_BUS ;
+    lv2:displayPriority 95 ;
+	rdfs:label "Bus Mix" ;
+	rdfs:range atom:Float ;
+	lv2:default 100 ;
+	lv2:minimum 0 ;
+	lv2:maximum 100 .
+
+plug:studio_vca_threshold
+	a lv2:Parameter ;
+	pg:group plug:G_STUDIOVCA ;
+    lv2:displayPriority 100 ;
+	rdfs:label "Threshold" ;
+	rdfs:range atom:Float ;
+	lv2:default -10 ;
+	lv2:minimum -40 ;
+	lv2:maximum 20 .
+
+plug:studio_vca_ratio
+	a lv2:Parameter ;
+	pg:group plug:G_STUDIOVCA ;
+    lv2:displayPriority 99 ;
+	rdfs:label "Ratio" ;
+	rdfs:range atom:Float ;
+	lv2:default 3 ;
+	lv2:minimum 1 ;
+	lv2:maximum 10 .
+
+plug:studio_vca_attack
+	a lv2:Parameter ;
+	pg:group plug:G_STUDIOVCA ;
+    lv2:displayPriority 98 ;
+	rdfs:label "Attack" ;
+	rdfs:range atom:Float ;
+	lv2:default 10 ;
+	lv2:minimum 0.3 ;
+	lv2:maximum 75 .
+
+plug:studio_vca_release
+	a lv2:Parameter ;
+	pg:group plug:G_STUDIOVCA ;
+    lv2:displayPriority 97 ;
+	rdfs:label "Release" ;
+	rdfs:range atom:Float ;
+	lv2:default 300 ;
+	lv2:minimum 100 ;
+	lv2:maximum 4000 .
+
+plug:studio_vca_output
+	a lv2:Parameter ;
+	pg:group plug:G_STUDIOVCA ;
+    lv2:displayPriority 96 ;
+	rdfs:label "Output" ;
+	rdfs:range atom:Float ;
+	lv2:default 2.98023e-07 ;
+	lv2:minimum -20 ;
+	lv2:maximum 20 .
+
+plug:studio_vca_mix
+	a lv2:Parameter ;
+	pg:group plug:G_STUDIOVCA ;
+    lv2:displayPriority 95 ;
+	rdfs:label "Mix" ;
+	rdfs:range atom:Float ;
+	lv2:default 100 ;
+	lv2:minimum 0 ;
+	lv2:maximum 100 .
+
+plug:digital_threshold
+	a lv2:Parameter ;
+	pg:group plug:G_DIGITAL ;
+    lv2:displayPriority 100 ;
+	rdfs:label "Threshold" ;
+	rdfs:range atom:Float ;
+	lv2:default -20 ;
+	lv2:minimum -60 ;
+	lv2:maximum 0 .
+
+plug:digital_ratio
+	a lv2:Parameter ;
+	pg:group plug:G_DIGITAL ;
+    lv2:displayPriority 99 ;
+	rdfs:label "Ratio" ;
+	rdfs:range atom:Float ;
+	lv2:default 4 ;
+	lv2:minimum 1 ;
+	lv2:maximum 100 .
+
+plug:digital_knee
+	a lv2:Parameter ;
+	pg:group plug:G_DIGITAL ;
+    lv2:displayPriority 96 ;
+	rdfs:label "Knee" ;
+	rdfs:range atom:Float ;
+	lv2:default 6 ;
+	lv2:minimum 0 ;
+	lv2:maximum 20 .
+
+plug:digital_attack
+	a lv2:Parameter ;
+	pg:group plug:G_DIGITAL ;
+    lv2:displayPriority 98 ;
+	rdfs:label "Attack" ;
+	rdfs:range atom:Float ;
+	lv2:default 10 ;
+	lv2:minimum 0.01 ;
+	lv2:maximum 500 .
+
+plug:digital_release
+	a lv2:Parameter ;
+	pg:group plug:G_DIGITAL ;
+    lv2:displayPriority 97 ;
+	rdfs:label "Release" ;
+	rdfs:range atom:Float ;
+	lv2:default 100 ;
+	lv2:minimum 1 ;
+	lv2:maximum 5000 .
+
+plug:digital_lookahead
+	a lv2:Parameter ;
+	pg:group plug:G_DIGITAL ;
+    lv2:displayPriority 95 ;
+	rdfs:label "Lookahead" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 10 .
+
+plug:digital_mix
+	a lv2:Parameter ;
+	pg:group plug:G_DIGITAL ;
+    lv2:displayPriority 94 ;
+	rdfs:label "Mix" ;
+	rdfs:range atom:Float ;
+	lv2:default 100 ;
+	lv2:minimum 0 ;
+	lv2:maximum 100 .
+
+plug:digital_output
+	a lv2:Parameter ;
+	pg:group plug:G_DIGITAL ;
+    lv2:displayPriority 93 ;
+	rdfs:label "Output" ;
+	rdfs:range atom:Float ;
+	lv2:default 3.57628e-07 ;
+	lv2:minimum -24 ;
+	lv2:maximum 24 .
+
+plug:digital_adaptive
+	a lv2:Parameter ;
+	pg:group plug:G_DIGITAL ;
+    lv2:displayPriority 92 ;
+	rdfs:label "Adaptive Release" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration , lv2:toggled ;
+	lv2:scalePoint [
+		rdfs:label "Off" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "On" ;
+		rdf:value 1 ;
+	] .
+
+plug:mb_crossover_1
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDCROSSOVER ;
+    lv2:displayPriority 100 ;
+	rdfs:label "Crossover 1" ;
+	rdfs:range atom:Float ;
+	lv2:default 200 ;
+	lv2:minimum 20 ;
+	lv2:maximum 500 .
+
+plug:mb_crossover_2
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDCROSSOVER ;
+    lv2:displayPriority 99 ;
+	rdfs:label "Crossover 2" ;
+	rdfs:range atom:Float ;
+	lv2:default 2000 ;
+	lv2:minimum 200 ;
+	lv2:maximum 5000 .
+
+plug:mb_crossover_3
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDCROSSOVER ;
+    lv2:displayPriority 98 ;
+	rdfs:label "Crossover 3" ;
+	rdfs:range atom:Float ;
+	lv2:default 8000 ;
+	lv2:minimum 2000 ;
+	lv2:maximum 16000 .
+
+plug:mb_low_threshold
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDLOW ;
+    lv2:displayPriority 100 ;
+	rdfs:label "Low Threshold" ;
+	rdfs:range atom:Float ;
+	lv2:default -20 ;
+	lv2:minimum -60 ;
+	lv2:maximum 0 .
+
+plug:mb_low_ratio
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDLOW ;
+    lv2:displayPriority 99 ;
+	rdfs:label "Low Ratio" ;
+	rdfs:range atom:Float ;
+	lv2:default 4 ;
+	lv2:minimum 1 ;
+	lv2:maximum 20 .
+
+plug:mb_low_attack
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDLOW ;
+    lv2:displayPriority 98 ;
+	rdfs:label "Low Attack" ;
+	rdfs:range atom:Float ;
+	lv2:default 10 ;
+	lv2:minimum 0.1 ;
+	lv2:maximum 100 .
+
+plug:mb_low_release
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDLOW ;
+    lv2:displayPriority 97 ;
+	rdfs:label "Low Release" ;
+	rdfs:range atom:Float ;
+	lv2:default 100 ;
+	lv2:minimum 10 ;
+	lv2:maximum 1000 .
+
+plug:mb_low_makeup
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDLOW ;
+    lv2:displayPriority 96 ;
+	rdfs:label "Low Makeup" ;
+	rdfs:range atom:Float ;
+	lv2:default 1.78814e-07 ;
+	lv2:minimum -12 ;
+	lv2:maximum 12 .
+
+plug:mb_low_bypass
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDLOW ;
+    lv2:displayPriority 95 ;
+	rdfs:label "Low Bypass" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration , lv2:toggled ;
+	lv2:scalePoint [
+		rdfs:label "Off" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "On" ;
+		rdf:value 1 ;
+	] .
+
+plug:mb_low_solo
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDLOW ;
+    lv2:displayPriority 94 ;
+	rdfs:label "Low Solo" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration , lv2:toggled ;
+	lv2:scalePoint [
+		rdfs:label "Off" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "On" ;
+		rdf:value 1 ;
+	] .
+
+plug:mb_low_enabled
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDLOW ;
+    lv2:displayPriority 93 ;
+	rdfs:label "Low Enabled" ;
+	rdfs:range atom:Float ;
+	lv2:default 1 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration , lv2:toggled ;
+	lv2:scalePoint [
+		rdfs:label "Off" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "On" ;
+		rdf:value 1 ;
+	] .
+
+plug:mb_lowmid_threshold
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDLOWMID ;
+    lv2:displayPriority 100 ;
+	rdfs:label "Low-Mid Threshold" ;
+	rdfs:range atom:Float ;
+	lv2:default -20 ;
+	lv2:minimum -60 ;
+	lv2:maximum 0 .
+
+plug:mb_lowmid_ratio
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDLOWMID ;
+    lv2:displayPriority 99 ;
+	rdfs:label "Low-Mid Ratio" ;
+	rdfs:range atom:Float ;
+	lv2:default 4 ;
+	lv2:minimum 1 ;
+	lv2:maximum 20 .
+
+plug:mb_lowmid_attack
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDLOWMID ;
+    lv2:displayPriority 98 ;
+	rdfs:label "Low-Mid Attack" ;
+	rdfs:range atom:Float ;
+	lv2:default 10 ;
+	lv2:minimum 0.1 ;
+	lv2:maximum 100 .
+
+plug:mb_lowmid_release
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDLOWMID ;
+    lv2:displayPriority 97 ;
+	rdfs:label "Low-Mid Release" ;
+	rdfs:range atom:Float ;
+	lv2:default 100 ;
+	lv2:minimum 10 ;
+	lv2:maximum 1000 .
+
+plug:mb_lowmid_makeup
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDLOWMID ;
+    lv2:displayPriority 96 ;
+	rdfs:label "Low-Mid Makeup" ;
+	rdfs:range atom:Float ;
+	lv2:default 1.78814e-07 ;
+	lv2:minimum -12 ;
+	lv2:maximum 12 .
+
+plug:mb_lowmid_bypass
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDLOWMID ;
+    lv2:displayPriority 95 ;
+	rdfs:label "Low-Mid Bypass" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration , lv2:toggled ;
+	lv2:scalePoint [
+		rdfs:label "Off" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "On" ;
+		rdf:value 1 ;
+	] .
+
+plug:mb_lowmid_solo
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDLOWMID ;
+    lv2:displayPriority 94 ;
+	rdfs:label "Low-Mid Solo" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration , lv2:toggled ;
+	lv2:scalePoint [
+		rdfs:label "Off" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "On" ;
+		rdf:value 1 ;
+	] .
+
+plug:mb_lowmid_enabled
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDLOWMID ;
+    lv2:displayPriority 93 ;
+	rdfs:label "Low-Mid Enabled" ;
+	rdfs:range atom:Float ;
+	lv2:default 1 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration , lv2:toggled ;
+	lv2:scalePoint [
+		rdfs:label "Off" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "On" ;
+		rdf:value 1 ;
+	] .
+
+plug:mb_highmid_threshold
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDHIGHMID ;
+    lv2:displayPriority 100 ;
+	rdfs:label "High-Mid Threshold" ;
+	rdfs:range atom:Float ;
+	lv2:default -20 ;
+	lv2:minimum -60 ;
+	lv2:maximum 0 .
+
+plug:mb_highmid_ratio
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDHIGHMID ;
+    lv2:displayPriority 99 ;
+	rdfs:label "High-Mid Ratio" ;
+	rdfs:range atom:Float ;
+	lv2:default 4 ;
+	lv2:minimum 1 ;
+	lv2:maximum 20 .
+
+plug:mb_highmid_attack
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDHIGHMID ;
+    lv2:displayPriority 98 ;
+	rdfs:label "High-Mid Attack" ;
+	rdfs:range atom:Float ;
+	lv2:default 10 ;
+	lv2:minimum 0.1 ;
+	lv2:maximum 100 .
+
+plug:mb_highmid_release
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDHIGHMID ;
+    lv2:displayPriority 97 ;
+	rdfs:label "High-Mid Release" ;
+	rdfs:range atom:Float ;
+	lv2:default 100 ;
+	lv2:minimum 10 ;
+	lv2:maximum 1000 .
+
+plug:mb_highmid_makeup
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDHIGHMID ;
+    lv2:displayPriority 96 ;
+	rdfs:label "High-Mid Makeup" ;
+	rdfs:range atom:Float ;
+	lv2:default 1.78814e-07 ;
+	lv2:minimum -12 ;
+	lv2:maximum 12 .
+
+plug:mb_highmid_bypass
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDHIGHMID ;
+    lv2:displayPriority 95 ;
+	rdfs:label "High-Mid Bypass" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration , lv2:toggled ;
+	lv2:scalePoint [
+		rdfs:label "Off" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "On" ;
+		rdf:value 1 ;
+	] .
+
+plug:mb_highmid_solo
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDHIGHMID ;
+    lv2:displayPriority 94 ;
+	rdfs:label "High-Mid Solo" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration , lv2:toggled ;
+	lv2:scalePoint [
+		rdfs:label "Off" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "On" ;
+		rdf:value 1 ;
+	] .
+
+plug:mb_highmid_enabled
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDHIGHMID ;
+    lv2:displayPriority 93 ;
+	rdfs:label "High-Mid Enabled" ;
+	rdfs:range atom:Float ;
+	lv2:default 1 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration , lv2:toggled ;
+	lv2:scalePoint [
+		rdfs:label "Off" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "On" ;
+		rdf:value 1 ;
+	] .
+
+plug:mb_high_threshold
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDHIGH ;
+    lv2:displayPriority 100 ;
+	rdfs:label "High Threshold" ;
+	rdfs:range atom:Float ;
+	lv2:default -20 ;
+	lv2:minimum -60 ;
+	lv2:maximum 0 .
+
+plug:mb_high_ratio
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDHIGH ;
+    lv2:displayPriority 99 ;
+	rdfs:label "High Ratio" ;
+	rdfs:range atom:Float ;
+	lv2:default 4 ;
+	lv2:minimum 1 ;
+	lv2:maximum 20 .
+
+plug:mb_high_attack
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDHIGH ;
+    lv2:displayPriority 98 ;
+	rdfs:label "High Attack" ;
+	rdfs:range atom:Float ;
+	lv2:default 10 ;
+	lv2:minimum 0.1 ;
+	lv2:maximum 100 .
+
+plug:mb_high_release
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDHIGH ;
+    lv2:displayPriority 97 ;
+	rdfs:label "High Release" ;
+	rdfs:range atom:Float ;
+	lv2:default 100 ;
+	lv2:minimum 10 ;
+	lv2:maximum 1000 .
+
+plug:mb_high_makeup
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDHIGH ;
+    lv2:displayPriority 96 ;
+	rdfs:label "High Makeup" ;
+	rdfs:range atom:Float ;
+	lv2:default 1.78814e-07 ;
+	lv2:minimum -12 ;
+	lv2:maximum 12 .
+
+plug:mb_high_bypass
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDHIGH ;
+    lv2:displayPriority 95 ;
+	rdfs:label "High Bypass" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration , lv2:toggled ;
+	lv2:scalePoint [
+		rdfs:label "Off" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "On" ;
+		rdf:value 1 ;
+	] .
+
+plug:mb_high_solo
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDHIGH ;
+    lv2:displayPriority 94 ;
+	rdfs:label "High Solo" ;
+	rdfs:range atom:Float ;
+	lv2:default 0 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration , lv2:toggled ;
+	lv2:scalePoint [
+		rdfs:label "Off" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "On" ;
+		rdf:value 1 ;
+	] .
+
+plug:mb_high_enabled
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDHIGH ;
+    lv2:displayPriority 93 ;
+	rdfs:label "High Enabled" ;
+	rdfs:range atom:Float ;
+	lv2:default 1 ;
+	lv2:minimum 0 ;
+	lv2:maximum 1	 ;
+	lv2:portProperty lv2:enumeration , lv2:toggled ;
+	lv2:scalePoint [
+		rdfs:label "Off" ;
+		rdf:value 0 ;
+	], [
+		rdfs:label "On" ;
+		rdf:value 1 ;
+	] .
+
+plug:mb_output
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDSETUP ;
+    lv2:displayPriority 100 ;
+	rdfs:label "MB Output" ;
+	rdfs:range atom:Float ;
+	lv2:default 3.57628e-07 ;
+	lv2:minimum -24 ;
+	lv2:maximum 24 .
+
+plug:mb_mix
+	a lv2:Parameter ;
+	pg:group plug:G_MULTIBANDSETUP ;
+    lv2:displayPriority 99 ;
+	rdfs:label "MB Mix" ;
+	rdfs:range atom:Float ;
+	lv2:default 100 ;
+	lv2:minimum 0 ;
+	lv2:maximum 100 .
+
+plug:input_group_1
+	a pg:InputGroup ;
+	lv2:name "Input" ;
+	lv2:symbol "input_group_1" .
+
+plug:input_group_2
+	a pg:InputGroup ;
+	lv2:name "Sidechain" ;
+	lv2:symbol "input_group_2" .
+
+plug:output_group_1
+	a pg:OutputGroup ;
+	lv2:name "Output" ;
+	lv2:symbol "output_group_1" .
+
+<https://dusk-audio.github.io/plugins/multi-comp>
+	ui:ui <https://dusk-audio.github.io/plugins/multi-comp:UI> ;
+	a lv2:Plugin ;
+	doap:name "Multi-Comp" ;
+	doap:description "Multi-mode compressor with Opto, FET, VCA, Bus emulations and 4-band multiband compression" ;
+	lv2:minorVersion 3 ;
+	lv2:microVersion 8 ;
+	doap:maintainer [
+		a foaf:Person ;
+		foaf:name "Dusk Audio" ;
+		foaf:homepage <> ;
+		foaf:mbox <> ;
+	] ;
+	doap:release [
+		a doap:Version ;
+		doap:revision "1.3.8" ;
+	] ;
+	lv2:optionalFeature
+		lv2:hardRTCapable ;
+	lv2:extensionData
+		state:interface ;
+	lv2:requiredFeature
+		urid:map ,
+		opts:options ,
+		bufs:boundedBlockLength ;
+	pg:mainInput plug:input_group_1 ;
+	pg:mainOutput plug:output_group_1 ;
+	patch:writable
+		plug:mode ,
+		plug:bypass ,
+		plug:stereo_link ,
+		plug:mix ,
+		plug:sidechain_hp ,
+		plug:auto_makeup ,
+		plug:distortion_type ,
+		plug:distortion_amount ,
+		plug:envelope_curve ,
+		plug:saturation_mode ,
+		plug:sidechain_enable ,
+		plug:global_lookahead ,
+		plug:global_sidechain_listen ,
+		plug:stereo_link_mode ,
+		plug:noise_enable ,
+		plug:oversampling ,
+		plug:sc_low_freq ,
+		plug:sc_low_gain ,
+		plug:sc_high_freq ,
+		plug:sc_high_gain ,
+		plug:true_peak_enable ,
+		plug:true_peak_quality ,
+		plug:gr_meter ,
+		plug:opto_peak_reduction ,
+		plug:opto_gain ,
+		plug:opto_limit ,
+		plug:fet_input ,
+		plug:fet_output ,
+		plug:fet_attack ,
+		plug:fet_release ,
+		plug:fet_ratio ,
+		plug:fet_threshold ,
+		plug:fet_curve_mode ,
+		plug:fet_transient ,
+		plug:vca_threshold ,
+		plug:vca_ratio ,
+		plug:vca_attack ,
+		plug:vca_release ,
+		plug:vca_output ,
+		plug:vca_overeasy ,
+		plug:vca_detector_mode ,
+		plug:bus_threshold ,
+		plug:bus_ratio ,
+		plug:bus_attack ,
+		plug:bus_release ,
+		plug:bus_makeup ,
+		plug:bus_mix ,
+		plug:studio_vca_threshold ,
+		plug:studio_vca_ratio ,
+		plug:studio_vca_attack ,
+		plug:studio_vca_release ,
+		plug:studio_vca_output ,
+		plug:studio_vca_mix ,
+		plug:digital_threshold ,
+		plug:digital_ratio ,
+		plug:digital_knee ,
+		plug:digital_attack ,
+		plug:digital_release ,
+		plug:digital_lookahead ,
+		plug:digital_mix ,
+		plug:digital_output ,
+		plug:digital_adaptive ,
+		plug:mb_crossover_1 ,
+		plug:mb_crossover_2 ,
+		plug:mb_crossover_3 ,
+		plug:mb_low_threshold ,
+		plug:mb_low_ratio ,
+		plug:mb_low_attack ,
+		plug:mb_low_release ,
+		plug:mb_low_makeup ,
+		plug:mb_low_bypass ,
+		plug:mb_low_solo ,
+		plug:mb_low_enabled ,
+		plug:mb_lowmid_threshold ,
+		plug:mb_lowmid_ratio ,
+		plug:mb_lowmid_attack ,
+		plug:mb_lowmid_release ,
+		plug:mb_lowmid_makeup ,
+		plug:mb_lowmid_bypass ,
+		plug:mb_lowmid_solo ,
+		plug:mb_lowmid_enabled ,
+		plug:mb_highmid_threshold ,
+		plug:mb_highmid_ratio ,
+		plug:mb_highmid_attack ,
+		plug:mb_highmid_release ,
+		plug:mb_highmid_makeup ,
+		plug:mb_highmid_bypass ,
+		plug:mb_highmid_solo ,
+		plug:mb_highmid_enabled ,
+		plug:mb_high_threshold ,
+		plug:mb_high_ratio ,
+		plug:mb_high_attack ,
+		plug:mb_high_release ,
+		plug:mb_high_makeup ,
+		plug:mb_high_bypass ,
+		plug:mb_high_solo ,
+		plug:mb_high_enabled ,
+		plug:mb_output ,
+		plug:mb_mix ;
+	patch:readable
+		plug:mode ,
+		plug:bypass ,
+		plug:stereo_link ,
+		plug:mix ,
+		plug:sidechain_hp ,
+		plug:auto_makeup ,
+		plug:distortion_type ,
+		plug:distortion_amount ,
+		plug:envelope_curve ,
+		plug:saturation_mode ,
+		plug:sidechain_enable ,
+		plug:global_lookahead ,
+		plug:global_sidechain_listen ,
+		plug:stereo_link_mode ,
+		plug:noise_enable ,
+		plug:oversampling ,
+		plug:sc_low_freq ,
+		plug:sc_low_gain ,
+		plug:sc_high_freq ,
+		plug:sc_high_gain ,
+		plug:true_peak_enable ,
+		plug:true_peak_quality ,
+		plug:gr_meter ,
+		plug:opto_peak_reduction ,
+		plug:opto_gain ,
+		plug:opto_limit ,
+		plug:fet_input ,
+		plug:fet_output ,
+		plug:fet_attack ,
+		plug:fet_release ,
+		plug:fet_ratio ,
+		plug:fet_threshold ,
+		plug:fet_curve_mode ,
+		plug:fet_transient ,
+		plug:vca_threshold ,
+		plug:vca_ratio ,
+		plug:vca_attack ,
+		plug:vca_release ,
+		plug:vca_output ,
+		plug:vca_overeasy ,
+		plug:vca_detector_mode ,
+		plug:bus_threshold ,
+		plug:bus_ratio ,
+		plug:bus_attack ,
+		plug:bus_release ,
+		plug:bus_makeup ,
+		plug:bus_mix ,
+		plug:studio_vca_threshold ,
+		plug:studio_vca_ratio ,
+		plug:studio_vca_attack ,
+		plug:studio_vca_release ,
+		plug:studio_vca_output ,
+		plug:studio_vca_mix ,
+		plug:digital_threshold ,
+		plug:digital_ratio ,
+		plug:digital_knee ,
+		plug:digital_attack ,
+		plug:digital_release ,
+		plug:digital_lookahead ,
+		plug:digital_mix ,
+		plug:digital_output ,
+		plug:digital_adaptive ,
+		plug:mb_crossover_1 ,
+		plug:mb_crossover_2 ,
+		plug:mb_crossover_3 ,
+		plug:mb_low_threshold ,
+		plug:mb_low_ratio ,
+		plug:mb_low_attack ,
+		plug:mb_low_release ,
+		plug:mb_low_makeup ,
+		plug:mb_low_bypass ,
+		plug:mb_low_solo ,
+		plug:mb_low_enabled ,
+		plug:mb_lowmid_threshold ,
+		plug:mb_lowmid_ratio ,
+		plug:mb_lowmid_attack ,
+		plug:mb_lowmid_release ,
+		plug:mb_lowmid_makeup ,
+		plug:mb_lowmid_bypass ,
+		plug:mb_lowmid_solo ,
+		plug:mb_lowmid_enabled ,
+		plug:mb_highmid_threshold ,
+		plug:mb_highmid_ratio ,
+		plug:mb_highmid_attack ,
+		plug:mb_highmid_release ,
+		plug:mb_highmid_makeup ,
+		plug:mb_highmid_bypass ,
+		plug:mb_highmid_solo ,
+		plug:mb_highmid_enabled ,
+		plug:mb_high_threshold ,
+		plug:mb_high_ratio ,
+		plug:mb_high_attack ,
+		plug:mb_high_release ,
+		plug:mb_high_makeup ,
+		plug:mb_high_bypass ,
+		plug:mb_high_solo ,
+		plug:mb_high_enabled ,
+		plug:mb_output ,
+		plug:mb_mix ;
+	lv2:port [
+		a lv2:InputPort , lv2:AudioPort ;
+		lv2:index 0 ;
+		lv2:symbol "audio_in_1" ;
+		lv2:name "Audio In 1" ;
+		pg:group plug:input_group_1 ;
+		lv2:designation <http://lv2plug.in/ns/ext/port-groups#left> ;
+	] , [
+		a lv2:InputPort , lv2:AudioPort ;
+		lv2:index 1 ;
+		lv2:symbol "audio_in_2" ;
+		lv2:name "Audio In 2" ;
+		pg:group plug:input_group_1 ;
+		lv2:designation <http://lv2plug.in/ns/ext/port-groups#right> ;
+	] , [
+		a lv2:InputPort , lv2:AudioPort ;
+		lv2:index 2 ;
+		lv2:symbol "audio_in_3" ;
+		lv2:name "Audio In 3" ;
+		pg:group plug:input_group_2 ;
+		lv2:portProperty lv2:connectionOptional ;
+		lv2:designation <http://lv2plug.in/ns/ext/port-groups#left> ;
+	] , [
+		a lv2:InputPort , lv2:AudioPort ;
+		lv2:index 3 ;
+		lv2:symbol "audio_in_4" ;
+		lv2:name "Audio In 4" ;
+		pg:group plug:input_group_2 ;
+		lv2:portProperty lv2:connectionOptional ;
+		lv2:designation <http://lv2plug.in/ns/ext/port-groups#right> ;
+	] , [
+		a lv2:OutputPort , lv2:AudioPort ;
+		lv2:index 4 ;
+		lv2:symbol "audio_out_1" ;
+		lv2:name "Audio Out 1" ;
+		pg:group plug:output_group_1 ;
+		lv2:designation <http://lv2plug.in/ns/ext/port-groups#left> ;
+	] , [
+		a lv2:OutputPort , lv2:AudioPort ;
+		lv2:index 5 ;
+		lv2:symbol "audio_out_2" ;
+		lv2:name "Audio Out 2" ;
+		pg:group plug:output_group_1 ;
+		lv2:designation <http://lv2plug.in/ns/ext/port-groups#right> ;
+	] , [
+		a lv2:InputPort , atom:AtomPort ;
+		rsz:minimumSize 15320 ;
+		atom:bufferType atom:Sequence ;
+		atom:supports
+			patch:Message ,
+			time:Position ;
+		lv2:designation lv2:control ;
+		lv2:index 6 ;
+		lv2:symbol "in" ;
+		lv2:name "In" ;
+	] , [
+		a lv2:OutputPort , atom:AtomPort ;
+		rsz:minimumSize 15320 ;
+		atom:bufferType atom:Sequence ;
+		atom:supports
+			patch:Message ;
+		lv2:designation lv2:control ;
+		lv2:index 7 ;
+		lv2:symbol "out" ;
+		lv2:name "Out" ;
+	] , [
+		a lv2:OutputPort , lv2:ControlPort ;
+		lv2:designation lv2:latency ;
+		lv2:symbol "latency" ;
+		lv2:name "Latency" ;
+		lv2:index 8 ;
+		lv2:portProperty lv2:reportsLatency , lv2:integer , lv2:connectionOptional , pprop:notOnGUI ;
+		units:unit units:frame ;
+	] , [
+		a lv2:InputPort , lv2:ControlPort ;
+		lv2:designation lv2:freeWheeling ;
+		lv2:symbol "freeWheeling" ;
+		lv2:name "Free Wheeling" ;
+		lv2:default 0.0 ;
+		lv2:minimum 0.0 ;
+		lv2:maximum 1.0 ;
+		lv2:index 9 ;
+		lv2:portProperty lv2:toggled , lv2:connectionOptional , pprop:notOnGUI ;
+	] , [
+		a lv2:InputPort , lv2:ControlPort ;
+		lv2:designation lv2:enabled ;
+		lv2:symbol "enabled" ;
+		lv2:name "Enabled" ;
+		lv2:default 1.0 ;
+		lv2:minimum 0.0 ;
+		lv2:maximum 1.0 ;
+		lv2:index 10 ;
+		lv2:portProperty lv2:toggled , lv2:connectionOptional , pprop:notOnGUI ;
+	] ;
+	opts:supportedOption
+		bufs:maxBlockLength .
+
+
+plug:G_SETUP
+a pg:ControlGroup ;
+lv2:name "Setup" ;
+lv2:symbol "g_setup" ;
+lv2:displayPriority 100 .
+
+plug:G_SIDECHAIN
+a pg:ControlGroup ;
+lv2:name "Sidechain" ;
+lv2:symbol "g_sidechain" ;
+lv2:displayPriority 99 .
+
+plug:G_OPTO
+a pg:ControlGroup ;
+lv2:name "Opto" ;
+lv2:symbol "g_opto" ;
+lv2:displayPriority 98 .
+
+plug:G_FET
+a pg:ControlGroup ;
+lv2:name "FET" ;
+lv2:symbol "g_fet" ;
+lv2:displayPriority 97 .
+
+plug:G_VCA
+a pg:ControlGroup ;
+lv2:name "VCA" ;
+lv2:symbol "g_vca" ;
+lv2:displayPriority 96 .
+
+plug:G_BUS
+a pg:ControlGroup ;
+lv2:name "Bus" ;
+lv2:symbol "g_bus" ;
+lv2:displayPriority 95 .
+
+plug:G_STUDIOVCA
+a pg:ControlGroup ;
+lv2:name "Studio-VCA" ;
+lv2:symbol "g_studiovca" ;
+lv2:displayPriority 94 .
+
+plug:G_DIGITAL
+a pg:ControlGroup ;
+lv2:name "Digital" ;
+lv2:symbol "g_digital" ;
+lv2:displayPriority 93 .
+
+plug:G_MULTIBANDCROSSOVER
+a pg:ControlGroup ;
+lv2:name "Multiband | Crossover" ;
+lv2:symbol "g_multibandcrossover" ;
+lv2:displayPriority 92 .
+
+plug:G_MULTIBANDLOW
+a pg:ControlGroup ;
+lv2:name "Multiband | Low" ;
+lv2:symbol "g_multibandlow" ;
+lv2:displayPriority 91 .
+
+plug:G_MULTIBANDLOWMID
+a pg:ControlGroup ;
+lv2:name "Multiband | Low-Mid" ;
+lv2:symbol "g_multibandlowmid" ;
+lv2:displayPriority 90 .
+
+plug:G_MULTIBANDHIGHMID
+a pg:ControlGroup ;
+lv2:name "Multiband | High-Mid" ;
+lv2:symbol "g_multibandhighmid" ;
+lv2:displayPriority 89 .
+
+plug:G_MULTIBANDHIGH
+a pg:ControlGroup ;
+lv2:name "Multiband | High" ;
+lv2:symbol "g_multibandhigh" ;
+lv2:displayPriority 88 .
+
+plug:G_MULTIBANDSETUP
+a pg:ControlGroup ;
+lv2:name "Multiband | Setup" ;
+lv2:symbol "g_multibandsetup" ;
+lv2:displayPriority 87 .
+

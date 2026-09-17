@@ -381,7 +381,7 @@ plug:gr_meter
 	a lv2:Parameter ;
 	pg:group plug:G_SETUP ;
     lv2:displayPriority 82 ;
-    lv2:portProperty <http://lv2plug.in/ns/ext/port-props#notOnGUI> ;
+    pprop:notOnGUI ;
 	rdfs:label "GR" ;
 	rdfs:range atom:Float ;
 	lv2:default 0 ;

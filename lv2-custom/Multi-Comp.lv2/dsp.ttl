@@ -381,7 +381,7 @@ plug:gr_meter
 	a lv2:Parameter ;
 	pg:group plug:G_SETUP ;
     lv2:displayPriority 82 ;
-    pprop:notOnGUI ;
+    pprop:notOnGUI 1;
 	rdfs:label "GR" ;
 	rdfs:range atom:Float ;
 	lv2:default 0 ;
